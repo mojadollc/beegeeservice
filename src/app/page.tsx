@@ -17,7 +17,7 @@ export default async function Home() {
   return (
     <>
       <section className="relative z-0 overflow-hidden text-white py-20 px-4">
-        <img src="/images/beegeeservice_hero_bg.jpg" alt="" className="absolute inset-0 w-full h-full object-cover" />
+        <img src="/uploads/beegeeservice_hero_bg.jpg" alt="" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-indigo-900/60" />
         <div className="relative max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-6xl font-extrabold mb-4">Beegeeservice</h1>
