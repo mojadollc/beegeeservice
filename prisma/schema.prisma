@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Post {
+  id        Int        @id @default(autoincrement())
+  slug      String
+  title     String
+  excerpt   String
+  body      String
+  category  String
+  image     String     @default("")
+  date      String
+  createdAt DateTime   @default(now())
+  reactions Reaction[]
+
+  @@unique([category, slug])
+}
+
+model Reaction {
+  id     Int    @id @default(autoincrement())
+  postId Int
+  emoji  String
+  count  Int    @default(0)
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@unique([postId, emoji])
+}
