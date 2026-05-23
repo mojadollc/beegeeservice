@@ -7,8 +7,25 @@ import Footer from "@/components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Beegeeservice - Blog",
-  description: "Business, Marketing, Technology, Lifestyle, Tips and Guides",
+  title: {
+    default: "Beegeeservice - Business, Marketing, Technology & Lifestyle Blog",
+    template: "%s | Beegeeservice",
+  },
+  description: "Expert insights on Business, Marketing, Technology, Lifestyle, Tips and Guides. Stay informed with the latest articles and strategies.",
+  keywords: ["business", "marketing", "technology", "lifestyle", "tips", "guides", "blog", "beegeeservice"],
+  openGraph: {
+    type: "website",
+    siteName: "Beegeeservice",
+    title: "Beegeeservice - Business, Marketing, Technology & Lifestyle Blog",
+    description: "Expert insights on Business, Marketing, Technology, Lifestyle, Tips and Guides.",
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

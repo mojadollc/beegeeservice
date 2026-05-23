@@ -16,18 +16,25 @@ export default async function Home() {
   const posts = await getAllPosts();
   return (
     <>
-      <section className="bg-gradient-to-br from-indigo-600 to-purple-700 text-white py-20 px-4">
-        <div className="max-w-4xl mx-auto text-center">
+      <section className="relative z-0 overflow-hidden text-white py-20 px-4">
+        <img src="/images/beegeeservice_hero_bg.jpg" alt="" className="absolute inset-0 w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-indigo-900/60" />
+        <div className="relative max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-6xl font-extrabold mb-4">Beegeeservice</h1>
           <p className="text-lg md:text-xl text-indigo-100">Insights on Business, Marketing, Technology, Lifestyle & More</p>
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-4 -mt-10">
+      <section className="relative z-10 max-w-7xl mx-auto px-4 -mt-10">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
           {categories.map((c) => (
-            <Link key={c.slug} href={`/${c.slug}`} className={`bg-gradient-to-br ${c.color} text-white rounded-xl p-4 text-center font-semibold shadow hover:scale-105 transition`}>
-              {c.label}
+            <Link key={c.slug} href={`/${c.slug}`} className={`relative overflow-hidden bg-gradient-to-br ${c.color} text-white rounded-xl p-4 text-center font-semibold shadow hover:scale-105 transition`}>
+              <svg className="absolute inset-0 w-full h-full opacity-20" viewBox="0 0 200 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="160" cy="10" r="40" fill="#fff" />
+                <circle cx="30" cy="70" r="30" fill="#fff" />
+                <path d="M0 60 Q50 20 100 50 T200 30 L200 80 L0 80Z" fill="#fff" />
+              </svg>
+              <span className="relative">{c.label}</span>
             </Link>
           ))}
         </div>

@@ -15,6 +15,7 @@ model Post {
   body      String
   category  String
   image     String     @default("")
+  keywords  String     @default("")
   date      String
   createdAt DateTime   @default(now())
   reactions Reaction[]
