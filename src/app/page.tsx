@@ -5,51 +5,128 @@ import Link from "next/link";
 export const dynamic = "force-dynamic";
 
 const categories = [
-  { slug: "business", label: "Business", color: "from-blue-500 to-indigo-600" },
-  { slug: "marketing", label: "Marketing", color: "from-pink-500 to-rose-600" },
-  { slug: "technology", label: "Technology", color: "from-cyan-500 to-blue-600" },
-  { slug: "lifestyle", label: "Lifestyle", color: "from-amber-400 to-orange-500" },
-  { slug: "tips-and-guides", label: "Tips & Guides", color: "from-green-400 to-emerald-600" },
+  { slug: "business", label: "Business" },
+  { slug: "marketing", label: "Marketing" },
+  { slug: "technology", label: "Technology" },
+  { slug: "lifestyle", label: "Lifestyle" },
+  { slug: "tips-and-guides", label: "Tips & Guides" },
 ];
 
 export default async function Home() {
   const posts = await getAllPosts();
   return (
     <>
-      <section className="relative z-0 overflow-hidden text-white py-20 px-4">
+      {/* Hero */}
+      <section className="relative overflow-hidden text-white py-24 px-4">
         <img src="/uploads/beegeeservice_hero_bg.jpg" alt="" className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-indigo-900/60" />
+        <div className="absolute inset-0 bg-slate-900/70" />
         <div className="relative max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl md:text-6xl font-extrabold mb-4">Beegoo</h1>
-          <p className="text-lg md:text-xl text-indigo-100">Insights on Business, Marketing, Technology, Lifestyle & More</p>
-        </div>
-      </section>
-
-      <section className="relative z-10 max-w-7xl mx-auto px-4 -mt-10">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-          {categories.map((c) => (
-            <Link key={c.slug} href={`/${c.slug}`} className={`relative overflow-hidden bg-gradient-to-br ${c.color} text-white rounded-xl p-4 text-center font-semibold shadow hover:scale-105 transition`}>
-              <svg className="absolute inset-0 w-full h-full opacity-20" viewBox="0 0 200 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="160" cy="10" r="40" fill="#fff" />
-                <circle cx="30" cy="70" r="30" fill="#fff" />
-                <path d="M0 60 Q50 20 100 50 T200 30 L200 80 L0 80Z" fill="#fff" />
-              </svg>
-              <span className="relative">{c.label}</span>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className="max-w-7xl mx-auto px-4 py-16">
-        <h2 className="text-2xl font-bold mb-8">Latest Articles</h2>
-        {posts.length === 0 ? (
-          <p className="text-gray-500">No articles yet. <Link href="/admin" className="text-indigo-600 underline">Create your first post</Link></p>
-        ) : (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {posts.slice(0, 9).map((post) => (
-              <PostCard key={`${post.category}/${post.slug}`} post={post} />
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-3">
+            Welcome to <span className="text-teal-400">Beegoo</span>
+          </h1>
+          <p className="text-lg text-slate-300 mb-8 max-w-2xl mx-auto">Your source for expert insights on Business, Marketing, Technology, and Lifestyle.</p>
+          <div className="flex flex-wrap justify-center gap-2">
+            {categories.map((c) => (
+              <Link key={c.slug} href={`/${c.slug}`} className="bg-white/10 backdrop-blur border border-white/20 text-white rounded-full px-4 py-2 text-sm font-medium hover:bg-teal-600 hover:border-teal-600 transition">
+                {c.label}
+              </Link>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Content */}
+      <section className="max-w-7xl mx-auto px-4 py-14">
+        {posts.length === 0 ? (
+          <p className="text-slate-500">No articles yet. <Link href="/admin" className="text-teal-600 underline">Create your first post</Link></p>
+        ) : (
+          <>
+            {/* Featured Article */}
+            <div className="mb-14">
+              <Link href={`/${posts[0].category}/${posts[0].slug}`} className="group block">
+                <div className="relative rounded-2xl overflow-hidden h-[380px]">
+                  {posts[0].image ? (
+                    <img src={posts[0].image} alt={posts[0].title} className="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-slate-200 to-slate-300 relative">
+                      <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="400" height="200" fill="#e2e8f0" />
+                        <circle cx="320" cy="40" r="80" fill="#cbd5e1" />
+                        <circle cx="60" cy="170" r="60" fill="#94a3b8" />
+                        <path d="M0 140 Q200 60 400 120 L400 200 L0 200Z" fill="#0d9488" opacity="0.2" />
+                      </svg>
+                    </div>
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-8">
+                    <span className="inline-block bg-teal-600 text-white text-xs font-medium uppercase tracking-wide px-3 py-1 rounded-full mb-3">{posts[0].category.replace(/-/g, " ")}</span>
+                    <h2 className="text-2xl md:text-3xl font-bold text-white group-hover:text-teal-300 transition leading-tight">{posts[0].title}</h2>
+                    <p className="text-slate-300 mt-2 line-clamp-2 max-w-2xl text-sm">{posts[0].excerpt}</p>
+                    <p className="text-slate-400 text-xs mt-3">{posts[0].date}</p>
+                  </div>
+                </div>
+              </Link>
+            </div>
+
+            {/* Secondary Featured */}
+            {posts.length > 1 && (
+              <div className="grid md:grid-cols-2 gap-5 mb-14">
+                {posts.slice(1, 3).map((post) => (
+                  <Link key={`${post.category}/${post.slug}`} href={`/${post.category}/${post.slug}`} className="group block relative rounded-xl overflow-hidden h-[220px]">
+                    {post.image ? (
+                      <img src={post.image} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-slate-200 to-slate-300 relative">
+                        <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                          <rect width="400" height="200" fill="#e2e8f0" />
+                          <circle cx="320" cy="40" r="80" fill="#cbd5e1" />
+                          <circle cx="60" cy="170" r="60" fill="#94a3b8" />
+                          <path d="M0 140 Q200 60 400 120 L400 200 L0 200Z" fill="#0d9488" opacity="0.2" />
+                        </svg>
+                      </div>
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-5">
+                      <span className="inline-block bg-teal-600/90 text-white text-xs font-medium uppercase px-2 py-0.5 rounded-full mb-2">{post.category.replace(/-/g, " ")}</span>
+                      <h3 className="text-lg font-semibold text-white group-hover:text-teal-300 transition line-clamp-2">{post.title}</h3>
+                      <p className="text-slate-400 text-xs mt-1">{post.date}</p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            )}
+
+            {/* Latest Articles */}
+            {posts.length > 3 && (
+              <div className="mb-14">
+                <h2 className="text-xl font-bold text-slate-800 mb-6">Latest Articles</h2>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                  {posts.slice(3, 12).map((post) => (
+                    <PostCard key={`${post.category}/${post.slug}`} post={post} />
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Category Sections */}
+            {categories.map((cat) => {
+              const catPosts = posts.filter((p) => p.category === cat.slug).slice(0, 3);
+              if (catPosts.length === 0) return null;
+              return (
+                <div key={cat.slug} className="mt-14">
+                  <div className="flex items-center justify-between mb-5">
+                    <h2 className="text-xl font-bold text-slate-800">{cat.label}</h2>
+                    <Link href={`/${cat.slug}`} className="text-teal-600 text-sm font-medium hover:underline">View all →</Link>
+                  </div>
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                    {catPosts.map((post) => (
+                      <PostCard key={`${post.category}/${post.slug}`} post={post} />
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </>
         )}
       </section>
     </>
