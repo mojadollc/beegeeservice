@@ -3,7 +3,7 @@ import CategoryPage from "@/components/CategoryPage";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
-  title: "Marketing Articles | Beegeeservice",
+  title: "Marketing Articles | Beegoo",
   description: "Expert marketing tips, digital strategies, and campaign insights.",
   keywords: ["marketing", "digital marketing", "SEO", "social media", "advertising"],
 };

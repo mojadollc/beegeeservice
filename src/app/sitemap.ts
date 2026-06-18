@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 import { getAllPosts } from "@/lib/posts";
 
-const BASE_URL = "https://beegeeservice.com";
+const BASE_URL = "https://beegoo.app";
 
 const categories = ["business", "marketing", "technology", "lifestyle", "tips-and-guides"];
 

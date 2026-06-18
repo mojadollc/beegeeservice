@@ -3,7 +3,7 @@ import CategoryPage from "@/components/CategoryPage";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
-  title: "Technology Articles | Beegeeservice",
+  title: "Technology Articles | Beegoo",
   description: "Stay updated with the latest technology trends, reviews, and tutorials.",
   keywords: ["technology", "tech", "software", "programming", "AI"],
 };

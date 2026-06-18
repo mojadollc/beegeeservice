@@ -8,15 +8,15 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
-    default: "Beegeeservice - Business, Marketing, Technology & Lifestyle Blog",
-    template: "%s | Beegeeservice",
+    default: "Beegoo - Business, Marketing, Technology & Lifestyle Blog",
+    template: "%s | Beegoo",
   },
   description: "Expert insights on Business, Marketing, Technology, Lifestyle, Tips and Guides. Stay informed with the latest articles and strategies.",
-  keywords: ["business", "marketing", "technology", "lifestyle", "tips", "guides", "blog", "beegeeservice"],
+  keywords: ["business", "marketing", "technology", "lifestyle", "tips", "guides", "blog", "beegoo"],
   openGraph: {
     type: "website",
-    siteName: "Beegeeservice",
-    title: "Beegeeservice - Business, Marketing, Technology & Lifestyle Blog",
+    siteName: "Beegoo",
+    title: "Beegoo - Business, Marketing, Technology & Lifestyle Blog",
     description: "Expert insights on Business, Marketing, Technology, Lifestyle, Tips and Guides.",
   },
   twitter: {
