@@ -16,25 +16,6 @@ export default async function Home() {
   const posts = await getAllPosts();
   return (
     <>
-      {/* Hero */}
-      <section className="relative overflow-hidden text-white py-24 px-4">
-        <img src="/uploads/beegeeservice_hero_bg.jpg" alt="" className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-slate-900/70" />
-        <div className="relative max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-3">
-            Welcome to <span className="text-teal-400">Beegoo</span>
-          </h1>
-          <p className="text-lg text-slate-300 mb-8 max-w-2xl mx-auto">Your source for expert insights on Business, Marketing, Technology, and Lifestyle.</p>
-          <div className="flex flex-wrap justify-center gap-2">
-            {categories.map((c) => (
-              <Link key={c.slug} href={`/${c.slug}`} className="bg-white/10 backdrop-blur border border-white/20 text-white rounded-full px-4 py-2 text-sm font-medium hover:bg-teal-600 hover:border-teal-600 transition">
-                {c.label}
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Content */}
       <section className="max-w-7xl mx-auto px-4 py-14">
         {posts.length === 0 ? (
