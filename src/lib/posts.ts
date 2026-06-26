@@ -32,9 +32,17 @@ export async function getPost(category: string, slug: string): Promise<Post | nu
   if (!post) return null;
   const processed = await remark().use(remarkGfm).use(html, { sanitize: false }).process(post.body);
   // Auto-link bare URLs not already in anchor tags
-  const htmlContent = processed.toString().replace(
+  let htmlContent = processed.toString().replace(
     /(?<!href=")(?<!<a[^>]*>)(https?:\/\/[^\s<]+)/g,
     '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-teal-600 underline">$1</a>'
+  );
+  // Add UTM tracking to all external links
+  htmlContent = htmlContent.replace(
+    /href="(https?:\/\/(?!beegoo\.app)[^"]+)"/g,
+    (match, url) => {
+      const separator = url.includes("?") ? "&" : "?";
+      return `href="${url}${separator}utm_source=beegoo.app&utm_medium=article&utm_campaign=${post.category}" target="_blank" rel="noopener noreferrer"`;
+    }
   );
   return { slug: post.slug, title: post.title, date: post.date, excerpt: post.excerpt, category: post.category, image: post.image, keywords: post.keywords, content: htmlContent };
 }
