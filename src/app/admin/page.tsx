@@ -131,6 +131,37 @@ export default function AdminPage() {
     }, 0);
   };
 
+  const htmlToMarkdown = (html: string): string => {
+    let md = html;
+    md = md.replace(/<b>|<strong>/gi, "**").replace(/<\/b>|<\/strong>/gi, "**");
+    md = md.replace(/<i>|<em>/gi, "_").replace(/<\/i>|<\/em>/gi, "_");
+    md = md.replace(/<a[^>]+href="([^"]+)"[^>]*>(.*?)<\/a>/gi, "[$2]($1)");
+    md = md.replace(/<h1[^>]*>(.*?)<\/h1>/gi, "# $1\n");
+    md = md.replace(/<h2[^>]*>(.*?)<\/h2>/gi, "## $1\n");
+    md = md.replace(/<h3[^>]*>(.*?)<\/h3>/gi, "### $1\n");
+    md = md.replace(/<li[^>]*>(.*?)<\/li>/gi, "- $1\n");
+    md = md.replace(/<br\s*\/?>/gi, "\n");
+    md = md.replace(/<p[^>]*>(.*?)<\/p>/gi, "$1\n\n");
+    md = md.replace(/<\/?(ul|ol|div|span)[^>]*>/gi, "");
+    md = md.replace(/<[^>]+>/g, "");
+    md = md.replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">");
+    md = md.replace(/\n{3,}/g, "\n\n");
+    return md.trim();
+  };
+
+  const handlePaste = (e: React.ClipboardEvent<HTMLTextAreaElement>) => {
+    const htmlData = e.clipboardData.getData("text/html");
+    if (!htmlData) return;
+    e.preventDefault();
+    const md = htmlToMarkdown(htmlData);
+    const ta = textareaRef.current;
+    if (!ta) return;
+    const start = ta.selectionStart;
+    const end = ta.selectionEnd;
+    const newBody = form.body.slice(0, start) + md + form.body.slice(end);
+    setForm((prev) => ({ ...prev, body: newBody }));
+  };
+
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (editing) {
@@ -242,6 +273,7 @@ export default function AdminPage() {
               rows={12}
               value={form.body}
               onChange={(e) => setForm({ ...form, body: e.target.value })}
+              onPaste={handlePaste}
               className="w-full px-4 py-3 resize-y focus:outline-none"
             />
           </div>

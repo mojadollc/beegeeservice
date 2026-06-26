@@ -1,6 +1,7 @@
 import { prisma } from "./prisma";
 import { remark } from "remark";
 import html from "remark-html";
+import remarkGfm from "remark-gfm";
 
 export type Post = {
   slug: string;
@@ -29,8 +30,13 @@ export async function getAllPosts(): Promise<Post[]> {
 export async function getPost(category: string, slug: string): Promise<Post | null> {
   const post = await prisma.post.findUnique({ where: { category_slug: { category, slug } } });
   if (!post) return null;
-  const processed = await remark().use(html).process(post.body);
-  return { slug: post.slug, title: post.title, date: post.date, excerpt: post.excerpt, category: post.category, image: post.image, keywords: post.keywords, content: processed.toString() };
+  const processed = await remark().use(remarkGfm).use(html, { sanitize: false }).process(post.body);
+  // Auto-link bare URLs not already in anchor tags
+  const htmlContent = processed.toString().replace(
+    /(?<!href=")(?<!<a[^>]*>)(https?:\/\/[^\s<]+)/g,
+    '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-teal-600 underline">$1</a>'
+  );
+  return { slug: post.slug, title: post.title, date: post.date, excerpt: post.excerpt, category: post.category, image: post.image, keywords: post.keywords, content: htmlContent };
 }
 
 export async function savePost(category: string, slug: string, data: { title: string; date: string; excerpt: string; image: string; keywords?: string }, body: string) {

@@ -17,7 +17,7 @@ export default async function PostDetail({ category, slug }: { category: string;
           <h1 className="text-3xl md:text-4xl font-extrabold mt-4 mb-2">{post.title}</h1>
           <p className="text-gray-400 text-sm mb-8">{post.date}</p>
           {post.image && <img src={post.image} alt={post.title} className="w-full rounded-xl mb-8" />}
-          <div className="prose prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: post.content || "" }} />
+          <div className="prose prose-lg max-w-none prose-a:text-teal-600 prose-a:underline" dangerouslySetInnerHTML={{ __html: post.content || "" }} />
           <ReactionBar postId={`${category}/${slug}`} />
         </article>
 
