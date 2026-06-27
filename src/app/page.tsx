@@ -3,15 +3,7 @@ import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
-const categories = [
-  { slug: "business", label: "Business" },
-  { slug: "marketing", label: "Marketing" },
-  { slug: "technology", label: "Technology" },
-  { slug: "lifestyle", label: "Lifestyle" },
-  { slug: "tips-and-guides", label: "Tips & Guides" },
-];
-
-const heights = ["h-64", "h-80", "h-72", "h-96", "h-60", "h-[22rem]", "h-72", "h-80", "h-64", "h-96"];
+const heights = ["h-80", "h-96", "h-[22rem]", "h-[26rem]", "h-80", "h-[28rem]", "h-96", "h-[22rem]", "h-80", "h-[26rem]"];
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
@@ -28,23 +20,12 @@ export default async function Home() {
 
   return (
     <>
-      {/* Category nav */}
-      <div className="max-w-7xl mx-auto px-4 pt-6 pb-2">
-        <div className="flex flex-wrap gap-2">
-          {categories.map((c) => (
-            <Link key={c.slug} href={`/${c.slug}`} className="px-4 py-1.5 rounded-full text-sm font-medium bg-slate-100 text-slate-700 hover:bg-teal-100 hover:text-teal-700 transition">
-              {c.label}
-            </Link>
-          ))}
-        </div>
-      </div>
-
       {/* TikTok-style masonry grid */}
-      <section className="max-w-7xl mx-auto px-4 py-6">
+      <section className="max-w-7xl mx-auto px-4 py-8">
         {posts.length === 0 ? (
           <p className="text-slate-500">No articles yet. <Link href="/admin" className="text-teal-600 underline">Create your first post</Link></p>
         ) : (
-          <div className="columns-2 md:columns-3 lg:columns-4 gap-3 space-y-3">
+          <div className="columns-2 md:columns-3 gap-4 space-y-4">
             {shuffled.map((post, i) => (
               <Link
                 key={`${post.category}/${post.slug}`}
